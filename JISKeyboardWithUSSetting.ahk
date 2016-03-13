@@ -35,3 +35,17 @@ RAlt::
 	send, {LShift up}
 	send, {LAlt up}
 Return
+
+;Multimedia keys
+ScrollLock::Volume_Down
+Pause::Volume_Up
+
+;Razer Mouse
+XButton1::^w
+
+XButton2::
+	send, {LCtrl down}
+	send, {Tab down}
+	send, {Tab up}
+	send, {LCtrl up}
+return
