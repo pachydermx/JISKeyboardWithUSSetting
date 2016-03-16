@@ -82,9 +82,9 @@ Pause::
 return
 
 ;Razer Mouse
-XButton1::^w
+XButton2::^w
 
-XButton2::
+XButton1::
 	send, {LCtrl down}
 	send, {Tab down}
 	send, {Tab up}
