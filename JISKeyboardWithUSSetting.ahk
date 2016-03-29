@@ -9,9 +9,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 +6::&
 +7::'
 +8::(
-+9::)
++9::SendInput, )
 +0::return
-+-::=
++-::SendInput, =
 =::^
 +=::`
 
