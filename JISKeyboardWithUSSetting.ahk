@@ -1,7 +1,9 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
+#Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
+orig = 0
 
 ;row 1
 `::^j
@@ -9,9 +11,15 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 +6::&
 +7::'
 +8::(
-+9::SendInput, )
-+0::return
-+-::SendInput, =
++9::0
+;+0::return
+$+-::
+	if (orig == 0){
+		Send, {=}
+	} else {
+		Send, {_}
+	}
+return
 =::^
 +=::`
 
@@ -69,7 +77,11 @@ SC070::
 Return
 
 ;Japanese Key
-SC073::_
+SC073::
+	orig = 1
+	SendInput {_}
+	orig = 0
+return
 +SC073::\
 SC07D::\
 
