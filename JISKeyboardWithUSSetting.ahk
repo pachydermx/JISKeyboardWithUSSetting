@@ -3,16 +3,73 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+;isModifiedKey
 orig = 0
+isModifiedKey := 0
+isTildeDown := 0
+isQuoteDown := 0
+is6Down := 0
+is7Down := 0
+is8Down := 0
+is9Down := 0
 
 ;row 1
 `::^j
 +2::"
-+6::&
-+7::Send, {'}
-+8::(
-+9::0
-;+0::return
+
+;Shift + 6 = &
+$^::
+	if (isTildeDown = 1){
+		SendRaw, ^
+	} else {
+		is6Down := 1
+		SendRaw, &
+		is6Down := 0
+	}
+return
+	
+;Shift + 7 = '
+$&::
+	if (is6Down = 1){
+		SendRaw, &
+	} else {
+		is7Down := 1
+		SendRaw, '
+		is7Down := 0
+	}
+return
+
+;Shift + 8 = (
+$*::
+	if (isQuoteDown = 1){
+		SendRaw, *
+	} else {
+		is8Down := 1
+		SendInput, {(}
+		is8Down := 0
+	}
+return
+
+;Shift + 9 = )
+$(::
+	if (is8Down = 1){
+		SendRaw, *
+	} else {
+		is9Down := 1
+		SendInput, {)}
+		is9Down := 0
+	}
+return
+
+;Shift + 0 = nothing
+$)::
+	if (is9Down = 1){
+		SendRaw, )
+	} else {
+		return
+	}
+return
+
 $+-::
 	if (orig == 0){
 		Send, {=}
@@ -32,7 +89,7 @@ return
 ;row 3
 +;::+
 ':::
-+"::*
+"::*
 \::]
 +\::}
 
@@ -57,6 +114,7 @@ SC07B::
 	send, {LShift up}
 	send, {LAlt up}
 Return
+
 ;switch to japanese
 SC079::
 	send, {LAlt down}
@@ -66,6 +124,7 @@ SC079::
 	send, {LShift up}
 	send, {LAlt up}
 Return
+
 ;switch to chinese
 SC070::
 	send, {LAlt down}
@@ -82,8 +141,17 @@ SC073::
 	SendInput {_}
 	orig = 0
 return
+
 +SC073::\
 SC07D::\
+
+;Change IME
+LWin & Space::
+	SendInput, {LAlt down}
+	SendInput, {LShift down}
+	SendInput, {LShift up}
+	SendInput, {LAlt up}
+return
 
 ;Multimedia keys
 ScrollLock::
@@ -94,9 +162,9 @@ Pause::
 return
 
 ;Razer Mouse
-XButton2::^w
+F14::^w
 
-XButton1::
+F13::
 	send, {LCtrl down}
 	send, {Tab down}
 	send, {Tab up}
