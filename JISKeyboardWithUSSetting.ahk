@@ -93,13 +93,6 @@ return
 \::]
 +\::}
 
-;language switcher
-RAlt::
-	send, {LAlt down}
-	send, {LShift down}
-	send, {LShift up}
-	send, {LAlt up}
-Return
 
 ;to enable script below, set "change language bar hot keys" in control panel-> clock,language,and region-> language-> advanced settings to this
 ; english: left alt + shift + 2
